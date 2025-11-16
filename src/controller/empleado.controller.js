@@ -129,17 +129,20 @@ export const EmpleadoController = {
 	updateByJson: async (request, response) => {
 		const empleadoInput = request.body;
 		//console.log("Prueba Anna: ",empleadoInput);
-		
 
 		try {
-			const empleadoFromDataBase = await EmpleadoRepository.getOne(empleadoInput.id);
-			console.log("El empleado a actualizar es: ", empleadoFromDataBase)
+			const empleadoFromDataBase = await EmpleadoRepository.getOne(
+				empleadoInput.id,
+			);
+			console.log("El empleado a actualizar es: ", empleadoFromDataBase);
 			if (!empleadoFromDataBase) {
-				response.status(422).json({ error: `El empleado con ID ${empleado.id} no existe` });
+				response
+					.status(422)
+					.json({ error: `El empleado con ID ${empleado.id} no existe` });
 				return;
 			}
 
-			const { valid: validName } = validateName(empleadoInput.name);
+			const { valid: validName } = validateName(empleadoInput.nombre);
 			//const { valid: validCategory } = validateCategory(bookInput.category);
 
 			const validacionGeneral = validName;
@@ -155,12 +158,15 @@ export const EmpleadoController = {
 
 			const updatedData = updateModel(
 				{
-					nombre: empleadoFromDataBase.nombre,
-					apellido: empleadoFromDataBase.apellido,
-					mail: empleadoFromDataBase.mail,
+					nombre: empleadoInput.nombre,
+					apellido: empleadoInput.apellido,
+					email: empleadoInput.email,
+					id: empleadoInput.id,
 				},
 				empleadoInput,
 			);
+
+			console.log({ updatedData });
 
 			await EmpleadoRepository.updateOne(updatedData);
 

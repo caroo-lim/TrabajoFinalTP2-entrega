@@ -6,9 +6,8 @@ export const EmpleadoRepository = {
 	},
 
 	getOne: async (id) => {
-		const prueba = await EmpleadoModel.findOne({ where: { id } });
-		console.log(prueba, "pruebaaa")
-		return prueba;
+		const user = await EmpleadoModel.findOne({ where: { id } });
+		return user.dataValues;
 	},
 
 	deleteOne: async (id) => {

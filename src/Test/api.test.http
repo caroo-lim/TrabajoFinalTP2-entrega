@@ -9,11 +9,11 @@
 GET  {{Host}}:{{Port}}/{{EndpointTempalte}}/all
 
 ###  Validacion de seleccion
-GET  {{Host}}:{{Port}}/{{EndpointTempalte}}/select/7
+GET  {{Host}}:{{Port}}/{{EndpointTempalte}}/select/27
 
 
 ###  Validacion de borrado
-DELETE  {{Host}}:{{Port}}/{{EndpointTempalte}}/delete/8
+DELETE  {{Host}}:{{Port}}/{{EndpointTempalte}}/delete/20
 
 
 ###  Creacion de empleado
@@ -21,11 +21,11 @@ POST  {{Host}}:{{Port}}/{{EndpointTempalte}}/create
 Content-Type: application/json
 
 {
-  "nombre": "Lionel",
-  "apellido": "Messi",
-  "dni": "112131313",
+  "nombre": "fran",
+  "apellido": "pellegrini",
+  "dni": null,
   "telefono": "1133445566",
-  "email": "the.goat@example.com",
+  "email": "dani@example.com",
   "fechaNacimiento": "1990-06-15",
   "fechaIngreso": "2024-03-10",
   "salarioBase": 2500000,
@@ -40,8 +40,8 @@ PATCH   {{Host}}:{{Port}}/{{EndpointTempalte}}/update
 Content-Type: application/json
 
 {
-  "nombre": "cambio nombre",
-  "apellido": "cambio de apellido",
-  "id": 10,
+  "nombre": "analia",
+  "apellido": "limachi",
+  "id": 27,
   "email": "pruebaDeFranco@example.com"
 }

@@ -19,6 +19,7 @@ const validateEmail = (email, blockedDomains = ["yahoo", "netscape"]) => {
 };
 
 export const validateName = (name) => {
+	console.log({ name });
 	if (!name || name.trim() === "") {
 		return { valid: false, message: "El nombre no puede estar vacía." };
 	}

@@ -10,6 +10,6 @@ EmpleadoRouter.get("/all", EmpleadoController.getAllEmpleados)
 	.get("/select/:id", EmpleadoController.getById)
 	.delete("/delete/:id", EmpleadoController.deleteById)
 	.post("/create", EmpleadoController.createByJson)
-	.patch("/update", EmpleadoController.updateByJson)
+	.patch("/update", EmpleadoController.updateByJson);
 
 export default EmpleadoRouter;
