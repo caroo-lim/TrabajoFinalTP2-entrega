@@ -11,10 +11,6 @@ export const EmpleadoModel = sequelize.define(
 			allowNull: false,
 			field: "id",
 		},
-		dni: {
-			type: DataTypes.STRING(20),
-			allowNull: false,
-		},
 		nombre: {
 			type: DataTypes.STRING(100),
 			allowNull: false,
@@ -22,6 +18,11 @@ export const EmpleadoModel = sequelize.define(
 		apellido: {
 			type: DataTypes.STRING(100),
 			allowNull: false,
+		},
+		dni: {
+			type: DataTypes.STRING(20),
+			allowNull: false,
+			unique: true,
 		},
 		email: {
 			type: DataTypes.STRING(150),
@@ -31,11 +32,11 @@ export const EmpleadoModel = sequelize.define(
 			type: DataTypes.STRING(30),
 			allowNull: true,
 		},
-		fechaIngreso: {
+		fechaNacimiento: {
 			type: DataTypes.DATEONLY,
 			allowNull: false,
 		},
-		fechaNacimiento: {
+		fechaIngreso: {
 			type: DataTypes.DATEONLY,
 			allowNull: false,
 		},
@@ -43,13 +44,22 @@ export const EmpleadoModel = sequelize.define(
 			type: DataTypes.DECIMAL(12, 2),
 			allowNull: false,
 		},
-		areaId: {
-			type: DataTypes.INTEGER,
+		genero: {
+			type: DataTypes.CHAR(1),
 			allowNull: false,
 		},
-		puestoId: {
-			type: DataTypes.INTEGER,
+		area: {
+			type: DataTypes.STRING(100),
 			allowNull: false,
+		},
+		puesto: {
+			type: DataTypes.STRING(100),
+			allowNull: false,
+		},
+		empleado_activo: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+			defaultValue: true,
 		},
 	},
 	{

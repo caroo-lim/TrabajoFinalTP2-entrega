@@ -1,47 +1,46 @@
 @Host=http://127.0.0.1
 @Port=3001
-@EndpointTempalte = api/empleado
-
-//@mongoId=68f9854ee8539580dad010d6
+@EndpointTemplate = api/empleado
 
 
-###  Validacion de seleccion all
-GET  {{Host}}:{{Port}}/{{EndpointTempalte}}/all
-
-###  Validacion de seleccion
-GET  {{Host}}:{{Port}}/{{EndpointTempalte}}/select/27
-
-
-###  Validacion de borrado
-DELETE  {{Host}}:{{Port}}/{{EndpointTempalte}}/delete/28
+###  1) Validacion de seleccion all - todos los empleados
+GET  {{Host}}:{{Port}}/{{EndpointTemplate}}/all
+###  2) Validacion de seleccion por ID
+GET  {{Host}}:{{Port}}/{{EndpointTemplate}}/select/1
 
 
-###  Creacion de empleado
-POST  {{Host}}:{{Port}}/{{EndpointTempalte}}/create
+###  3) Validacion de borrado (baja logica del empleado)
+DELETE  {{Host}}:{{Port}}/{{EndpointTemplate}}/delete/22
+
+###  4) Creacion de empleado
+POST  {{Host}}:{{Port}}/{{EndpointTemplate}}/create
 Content-Type: application/json
 
 {
-  "nombre": "Prueba",
-  "apellido": "prueba",
-  "dni": 1122333,
-  "telefono": "11223344",
-  "email": "dani@example.com",
+  "nombre": "Leo",
+  "apellido": "Messi",
+  "dni": "12345678",
+  "telefono": "112",
+  "email": "leo@example.com",
   "fechaNacimiento": "1990-06-15",
   "fechaIngreso": "2024-03-10",
-  "salarioBase": 3000000,
-  "areaId": 2,
-  "puestoId": 4
+  "salarioBase": "19000000",
+  "genero": "m",
+  "area": "Finanzas",
+  "puesto": "Contador"
 }
 
 
 
-###  Modificacion de datos del empleado
-PATCH   {{Host}}:{{Port}}/{{EndpointTempalte}}/update
+###  5) Modificacion de datos del empleado
+PATCH   {{Host}}:{{Port}}/{{EndpointTemplate}}/update
 Content-Type: application/json
 
 {
-  "nombre": "coco",
-  "apellido": "coco",
-  "id": 29,
-  "email": "coco@example.com"
+  "id": 1,
+  "nombre": "Prueba-Editado",
+  "apellido": "Empleado-Editado",
+  "email": "prueba.editado@example.com",
+  "telefono": "11998877",
+  "salarioBase": 3500000
 }
