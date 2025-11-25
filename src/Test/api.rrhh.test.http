@@ -88,3 +88,13 @@ Accept: application/json
 GET  {{Host}}:{{Port}}/api/capacitaciones-externas/{{categoria}}
 Authorization: Bearer {{token}}
 Accept: application/json
+
+### RRHH: Estadistica - % hombres/mujeres por área
+GET {{Host}}:{{Port}}/api/empleado/estadisticas/genero-por-area
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### RRHH: Estadistica - empleados activos e inactivos por área
+GET  {{Host}}:{{Port}}/{{EndpointTemplate}}/estadisticas/activos-por-area
+Authorization: Bearer {{token}}
+Accept: application/json

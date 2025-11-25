@@ -16,6 +16,8 @@ EmpleadoRouter
 	.post("/create", authenticateToken, EmpleadoController.createByJson)
 	.patch("/update", authenticateToken, EmpleadoController.updateByJson)
 
+	
+	
 	//SOLO ADMIN ( requiere estar logueado y rol admin ) get all y delete definitivo
 	.get("/all", authenticateToken, authorizeAdmin, EmpleadoController.getAllEmpleados)
 	.delete("/delete-hard/:id", authenticateToken, authorizeAdmin, EmpleadoController.deleteHardById)
@@ -24,9 +26,15 @@ EmpleadoRouter
 	.get("/estadisticas/promedio-sueldo-area", authenticateToken, authorizeAdmin, EmpleadoController.getPromedioSueldosPorArea)
 
 	// SOLO ADMIN - Reporte: cantidad empleados por area 
-	.get("/estadisticas/cantidad-area",	authenticateToken, authorizeAdmin, EmpleadoController.getCantidadEmpleadosPorArea);
+	.get("/estadisticas/cantidad-area", authenticateToken, authorizeAdmin, EmpleadoController.getCantidadEmpleadosPorArea)
 
+	
+	
+	// Ruta protegida - Estadistica: % de género por area
+	.get("/estadisticas/genero-por-area", authenticateToken, EmpleadoController.getDistribucionGeneroPorArea)
 
+	// Ruta protegida - Estadistica: empleados activos e inactivos por área (RRHH + ADMIN)
+	.get("/estadisticas/activos-por-area", authenticateToken, EmpleadoController.getActivosNoActivosPorArea);
 
 
 export default EmpleadoRouter;

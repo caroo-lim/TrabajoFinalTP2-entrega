@@ -326,6 +326,114 @@ export const EmpleadoController = {
 			});
 		}
 	},
+	// Estadistica: % de género por area (solo empleados activos)
+	getDistribucionGeneroPorArea: async (req, res) => {
+		try {
+			const rows = await EmpleadoRepository.getDistribucionGeneroPorArea();
+
+			//convertirmos a un formato simple
+			const resultado = {};
+
+			rows.forEach(row => {
+				const area = row.area;
+				const genero = row.genero.toUpperCase();
+				const cantidad = Number(row.get("cantidad"));
+
+				// inicializamos el area si no existe
+				if (!resultado[area]) {
+					resultado[area] = { M: 0, F: 0 };
+				}
+
+				// Acumular cantidades por género
+				resultado[area][genero] += cantidad;
+			});
+
+			// convertimos al formato final con porcentajes
+			const final = Object.entries(resultado).map(([area, datos]) => {
+				const total = datos.M + datos.F;
+
+				const porcentajeHombres = total ? Math.round((datos.M / total) * 100) + "%" : "0%";
+				const porcentajeMujeres = total ? Math.round((datos.F / total) * 100) + "%" : "0%";
+
+				return {
+					area,
+					total_empleados: total,
+					cantidad_hombres: datos.M,
+					cantidad_mujeres: datos.F,
+					porcentaje_hombres: porcentajeHombres,
+					porcentaje_mujeres: porcentajeMujeres
+				};
+			});
+
+			return res.status(200).json({
+				ok: true,
+				code: 200,
+				payload: final
+			});
+
+		} catch (error) {
+			console.log("ERROR en distribución género por área:", error.message);
+			return res.status(500).json({ ok: false, error: "Error interno del servidor" });
+		}
+	},
+
+	// Estadistica: cantidad de empleados activos e inactivos por area
+	getActivosNoActivosPorArea: async (req, res) => {
+	try {
+		const rows = await EmpleadoRepository.getActivosNoActivosPorArea();
+
+		const resultado = {};
+
+		rows.forEach(row => {
+			const area = row.area;
+			const activo = row.empleado_activo; // true / false
+			const cantidad = Number(row.get("cantidad"));
+
+			if (!resultado[area]) {
+				resultado[area] = {
+					activos: 0,
+					inactivos: 0,
+				};
+			}
+
+			if (activo) {
+				resultado[area].activos += cantidad;
+			} else {
+				resultado[area].inactivos += cantidad;
+			}
+		});
+
+		const final = Object.entries(resultado).map(([area, datos]) => {
+			const total = datos.activos + datos.inactivos;
+
+			const porcentajeActivos =
+				total > 0 ? Math.round((datos.activos / total) * 100) + "%" : "0%";
+			const porcentajeInactivos =
+				total > 0 ? Math.round((datos.inactivos / total) * 100) + "%" : "0%";
+
+			return {
+				area,
+				total_empleados: total,
+				cantidad_activos: datos.activos,
+				cantidad_inactivos: datos.inactivos,
+				porcentaje_activos: porcentajeActivos,
+				porcentaje_inactivos: porcentajeInactivos,
+			};
+		});
+
+		return res.status(200).json({
+			ok: true,
+			code: 200,
+			payload: final,
+		});
+	} catch (error) {
+		console.log("ERROR en activos/inactivos por área:", error.message);
+		return res.status(500).json({
+			ok: false,
+			error: "Error interno del servidor",
+		});
+	}
+},
 
 
 };

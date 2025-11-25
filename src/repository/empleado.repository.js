@@ -94,7 +94,7 @@ export const EmpleadoRepository = {
 	getPromedioSueldosPorArea: async () => {
 		return await EmpleadoModel.findAll({
 			attributes: [
-				"area", 
+				"area",
 				[
 					sequelize.fn(
 						"ROUND",
@@ -123,6 +123,36 @@ export const EmpleadoRepository = {
 			group: ["area"] // agrupar por area
 		});
 	},
+
+	// Estadistica: % de género por area (solo empleados activos)
+	getDistribucionGeneroPorArea: async () => {
+		return await EmpleadoModel.findAll({
+			attributes: [
+				"area",
+				"genero",
+				[sequelize.fn("COUNT", sequelize.col("id")), "cantidad"]
+			],
+			where: {
+				empleado_activo: true
+			},
+			group: ["area", "genero"],
+			order: [["area", "ASC"]]
+		});
+	},
+
+	// Estadistica: cantidad de empleados activos e inactivos por area
+	getActivosNoActivosPorArea: async () => {
+		return await EmpleadoModel.findAll({
+			attributes: [
+				"area",
+				"empleado_activo",
+				[sequelize.fn("COUNT", sequelize.col("id")), "cantidad"]
+			],
+			group: ["area", "empleado_activo"],
+			order: [["area", "ASC"]],
+		});
+	},
+
 
 
 
