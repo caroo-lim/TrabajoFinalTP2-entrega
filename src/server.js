@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from "morgan";
+import { config } from "./config/config.js";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 
@@ -10,11 +11,6 @@ import AuthRouter from "./router/auth.router.js";
 import WelcomeRouter from "./router/welcome.router.js";
 import notFoundHandler from "./middleware/notFoundHandler.js";
 
-// 👇 Acá va el bloque que preguntaste
-const PORT = process.env.PORT || config.SERVER_PORT;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
-});
 
 //instancio express
 const server = express();
@@ -49,5 +45,10 @@ server.use("/api/usuario", UsuarioRouter);
 // not found es para rutas que no existen
 server.use(notFoundHandler);
 
+
+const PORT = process.env.PORT || config.SERVER_PORT;
+server.listen(PORT, () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
+});
 
 export default server;
