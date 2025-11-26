@@ -1,6 +1,5 @@
 import express from "express";
 import morgan from "morgan";
-import { config } from "./config/config.js";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 
@@ -45,10 +44,5 @@ server.use("/api/usuario", UsuarioRouter);
 // not found es para rutas que no existen
 server.use(notFoundHandler);
 
-
-const PORT = process.env.PORT || config.SERVER_PORT;
-server.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
-});
 
 export default server;
